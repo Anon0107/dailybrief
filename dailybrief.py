@@ -90,7 +90,7 @@ def main():
         period = 'evening'
     articles = news_data['articles']
     # Brief header
-    text = f'Good {period}. Current temperature in Melaka: {weather_data["hourly"]["temperature_2m"][hour]}. Current weather: {wmo_codes[weather_data["hourly"]["weather_code"][hour]]}\nTop news currently({current_time}):'
+    text = f'Good {period}. Current temperature in Melaka: {weather_data["hourly"]["temperature_2m"][hour]}{weather_data["hourly_units"]["temperature_2m"]}. Current weather: {wmo_codes[weather_data["hourly"]["weather_code"][hour]]}\nTop news currently({current_time}):'
     if not articles:
         text += '\nNo articles found for this category.' # If no article found
     else:
