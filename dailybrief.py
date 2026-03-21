@@ -4,6 +4,13 @@ import time
 from dotenv import load_dotenv
 from datetime import datetime
 def main():
+    """Main script to fetch data from OpenMeteo API and NewsAPI, generate daily brief
+       and saves in a timestamped .txt file
+
+    Raises:
+        ValueError: raise when NewsAPI key not found in .env file
+        
+    """
     load_dotenv() # Load .env file
     NEWS_API = os.getenv('NEWS_API_KEY') # Extract newsAPI key
     if not NEWS_API: # Check for newsAPI key
@@ -66,11 +73,30 @@ def main():
         'forecast_days' : 1
     }
     # Extracting data from news and weather API from helper methods
-    def fetch_news(url, headers, params):
+    def fetch_news(url:str, headers:dict, params:dict) -> dict:
+        """Fetch news data from NewsAPI with input parameters
+
+        Args:
+            url (str): base URL of NewsAPI
+            headers (dict): NewsAPI key authorization
+            params (dict): queries for news fetching
+
+        Returns:
+            dict: dictionary of response object
+        """
         response = requests.get(url, headers = headers, params = params, timeout = 10)
         response.raise_for_status()
         return response.json()
-    def fetch_weather(url, params):
+    def fetch_weather(url:str, params:dict) -> dict:
+        """Fetch weather data from OpenMeteo API with input parameters
+
+        Args:
+            url (str): base URL of OpenMeteo API
+            params (dict): queries for weather fetching
+
+        Returns:
+            dict: dictionary of response object
+        """
         response = requests.get(url, params = params, timeout = 10)
         response.raise_for_status()
         return response.json()
